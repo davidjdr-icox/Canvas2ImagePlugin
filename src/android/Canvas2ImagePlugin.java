@@ -50,7 +50,7 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 			} else {
 				
 				// Save the image
-				File imageFile = savePhoto(bmp);
+				File imageFile = savePhoto(bmp, data.optString(1));
 				if (imageFile == null)
 					callbackContext.error("Error while saving image");
 				
@@ -66,7 +66,7 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 		}
 	}
 
-	private File savePhoto(Bitmap bmp) {
+	private File savePhoto(Bitmap bmp, String fileName) {
 		File retVal = null;
 		
 		try {
@@ -99,7 +99,7 @@ public class Canvas2ImagePlugin extends CordovaPlugin {
 				folder = Environment.getExternalStorageDirectory();
 			}
 			
-			File imageFile = new File(folder, "c2i_" + date.toString() + ".png");
+			File imageFile = new File(folder, fileName);
 
 			FileOutputStream out = new FileOutputStream(imageFile);
 			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
